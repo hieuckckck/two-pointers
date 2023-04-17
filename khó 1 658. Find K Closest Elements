@@ -1,0 +1,62 @@
+class Solution {
+public:
+    vector<int> findClosestElements(vector<int>& arr, int k, int x) {
+        vector<int> output;
+        vector<int> diff;
+        int size = arr.size();
+        int closestID = 0;
+        int min = INT_MAX;
+        for(int i = 0 ; i <size; i++)
+        {
+            int tmpDiff = abs(x-arr[i]);
+            diff.push_back(tmpDiff);
+
+            if(tmpDiff < min)
+            {
+               closestID = i;
+               min = tmpDiff; 
+            }
+        }
+        
+        output.push_back(arr[closestID]);
+        k--;
+
+        int ptr1 = closestID-1;
+        int ptr2 = closestID+1;
+
+        while(k > 0 && ptr1 >= 0 && ptr2 < size)
+        {
+            if(diff[ptr1] > diff[ptr2])
+            {
+                output.push_back(arr[ptr2]);
+                // cout<<"p1"<<"ptr2"<<endl;
+                ptr2++;
+            }
+            else
+            {
+                output.push_back(arr[ptr1]);
+                // cout<<"p2"<<"ptr1"<<endl;
+                ptr1--;
+            }
+            k--;
+        }
+
+        while(k > 0 && ptr1 >= 0)
+        {
+            output.push_back(arr[ptr1]);
+            // cout<<"p3"<<"ptr1"<<endl;
+            ptr1--;
+            k--;
+        }
+
+        while(k > 0 && ptr2 < size)
+        {
+            output.push_back(arr[ptr2]);
+            // cout<<"p4"<<"ptr2"<<endl;
+            ptr2++;
+            k--;
+        }
+        sort(output.begin(),output.end());
+        return output;
+    }
+};
