@@ -1,0 +1,49 @@
+lass Solution {
+public:
+    string reverseStr(string s, int k) {
+        
+        int len = s.length();
+        int n = 2*k;
+
+        if(len < n)
+        {
+            if(len < k)
+            {
+                reverse(s.begin(),s.end());
+                return s;
+            }
+            else
+            {
+                reverse(s.begin(),s.begin()+k);
+                return s;
+            }
+        }
+        else 
+        {
+            int loop = len / n;
+            int a = 0;
+            int b = k;
+
+            for(int i=1;i<=loop;i++)
+            {
+                reverse(s.begin()+a,s.begin()+b);
+                a = 2*i*k;
+                b = a + k;
+            }
+
+            int rem = len % n;
+            if(rem == 0) return s;
+            
+            if(rem < k)
+            {
+                reverse(s.end() - rem ,s.end());
+            }
+            else
+            {
+                reverse(s.end() - rem ,s.end() - rem + k );
+            }
+
+            return s;
+        }
+    }
+};
