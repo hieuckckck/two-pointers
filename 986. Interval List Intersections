@@ -1,0 +1,44 @@
+Beats 80% sumission very easy
+anmoldau_50
+50 Days Badge 2022
+10
+Apr 14, 2023
+Intuition
+Approach
+Complexity
+Time complexity:
+Space complexity:
+Code
+class Solution:
+    def intervalIntersection(self, firstList: List[List[int]], secondList: List[List[int]]) -> List[List[int]]:
+
+        arr=[]
+        n=len(firstList)
+        m=len(secondList)
+        if(n==0 or m==0):
+            return arr
+        
+        i=0
+        j=0
+        while(i<n and j<m):
+
+            if(firstList[i][0]>secondList[j][1]):
+                j+=1
+            elif(firstList[i][1]<secondList[j][0]):
+                i+=1
+            else:
+                temp=[]
+                temp.append(max(firstList[i][0],secondList[j][0]))
+                temp.append(min(firstList[i][1],secondList[j][1]))
+
+                if(firstList[i][1]>secondList[j][1]):
+                    j+=1
+                elif(firstList[i][1]<secondList[j][1]):
+                    i+=1
+                else:
+                    i+=1
+                    j+=1
+                
+                arr.append(temp)
+
+        return arr
