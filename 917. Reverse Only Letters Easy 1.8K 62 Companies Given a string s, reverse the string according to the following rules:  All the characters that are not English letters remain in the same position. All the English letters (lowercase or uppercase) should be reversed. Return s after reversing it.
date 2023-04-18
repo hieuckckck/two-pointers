@@ -1,0 +1,74 @@
+Two pointer approach (shortest code)
+eldrie
+2
+6 hours ago
+Intuition
+My first thought is to use two pointers, one starting from the beginning of the string and the other starting from the end of the string, and swap the characters at the two pointers if they are both alphabetical. If one of them is non-alphabetical, we simply move the corresponding pointer without swapping.
+
+Approach
+I will implement the approach described above using two pointers and a while loop. The loop will continue until the two pointers meet or cross each other. At each iteration of the loop, we will check if the characters at the two pointers are alphabetical. If they are not, we will simply move the corresponding pointer. If they are, we will swap the characters and then move the pointers. We will continue the loop until the two pointers meet or cross each other.
+
+Complexity
+Time complexity: O(n)O(n)O(n), where n is the length of the input string. This is because we are iterating through the string once using two pointers, and in each iteration, we perform a constant number of operations (comparisons and swaps).
+
+Space complexity: O(1)O(1)O(1), as we are not using any extra data structures and are modifying the input string in place.
+
+Code
+class Solution {
+public:
+    string reverseOnlyLetters(string s) {
+        int l = 0, r = s.size()-1;
+
+        while(l < r) {
+            char c1 = tolower(s[l]);
+            char c2 = tolower(s[r]);
+            if(!(c1 >= 'a' && c1 <= 'z')) {l++;continue;}
+            if(!(c2 >= 'a' && c2 <= 'z')) {r--;continue;}
+
+            swap(s[l], s[r]);
+            l++;
+            r--;
+        }
+
+        return s;
+    }
+};
+c2:
+
+100%beats with explanation||easy to understand||cpp
+SampurnaThakur
+24
+Apr 08, 2023
+Intuition
+2 pointer approach
+
+Approach
+take i and j,iterate it,if i and j is alphabet then i++,j--
+if i is not alphabet then dont swap,just move ahead i++
+if j is not alphabet then dont swap;just move back(j--) and again check with new i ang j whether they are alphabet or not.
+
+Complexity
+Time complexity:
+Space complexity:
+Code
+class Solution {
+public:
+    string reverseOnlyLetters(string s) {
+       //take two pointer approach
+       int i=0; int j=s.size()-1;
+       while(i<j){
+           if(isalpha(s[i])&& isalpha(s[j])){
+               swap(s[i],s[j]);
+               i++,j--;
+           }
+           else if(!isalpha(s[i])){
+               i++;
+           }
+           else 
+               j--;
+           
+       }
+       return s;
+    }
+};
+![478xve.jpg](https://assets.leetcode.com/users/images/08b8a69f-0400-4bfe-b214-7f4b4531b69e_1680962386.0705693.jpeg)
