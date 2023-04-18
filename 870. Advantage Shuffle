@@ -1,0 +1,38 @@
+Advantage Shuffling by using Multiset Approach
+shrey0811
+100 Days Badge 2022
+8
+Nov 22, 2022
+Step 1 : change array into multiset -->it become sorted have rich function also
+Step 2 : search the greater element in multiset for given b[i] by multiset :: upper_bound(iterator)
+Step 3 : if found --> store in new array and erase that element by multiset :: erase(iterator) ,otherwise store beginnning element of multiset in new array and erase then ;
+Step 4 : return the new array
+
+class Solution {
+public:
+    vector<int> advantageCount(vector<int>& a, vector<int>& b)
+    {
+        multiset<int> s;
+        for(int i=0;i<a.size();i++)
+        {
+            s.insert(a[i]);
+        }
+        
+        vector<int> v;
+        for(int i=0;i<b.size();i++)
+        {
+            auto it = s.upper_bound(b[i]);
+            if(it!=s.end())
+            {
+                v.push_back(*(it));
+                s.erase(it);
+            }
+            else
+            {
+                v.push_back(*(s.begin()));
+                s.erase(s.begin());
+            }
+        }
+        return v;
+    }
+};
