@@ -1,0 +1,80 @@
+C++[Easy to understand & simple logic]
+roy_priyanka
+7
+Apr 16, 2023
+Intuition
+Approach
+Complexity
+Time complexity:
+O[n]
+Space complexity:
+O[1]
+Code
+class Solution {
+public:
+    vector<int> sortArrayByParityII(vector<int>& nums) {
+    
+        vector<int> ans(nums.size());
+        int e=0,o=1;
+        for(int i=0;i<nums.size();i++)
+        {
+            if(nums[i]%2==0)
+            {
+                ans[e]=nums[i];
+                    e+=2;
+            }
+            else if(nums[i]%2!=0)
+            
+                {
+                    ans[o]=nums[i];
+                    o+=2;
+                }
+            
+        }
+        return ans;
+    }
+};
+
+c2:
+
+
+Simple C++ Code|| Easy Understanding....
+karthikcoder2002
+5
+Mar 29, 2023
+Intuition
+Approach
+Complexity
+Time complexity:
+Space complexity:
+Code
+class Solution {
+public:
+    vector<int> sortArrayByParityII(vector<int>& nums) {
+        vector<int>even;
+        vector<int>odd;
+        vector<int>v;
+        int n=nums.size();
+        for(int i=0;i<n;i++)
+        {
+            if(nums[i]%2==0) even.push_back(nums[i]);
+            else odd.push_back(nums[i]);
+        }
+        int k=0;
+        int l=0;
+        for(int i=0;i<n;i++)
+        {
+            if(i%2==0) 
+            {
+                v.push_back(even[k]);
+                k++;
+            }
+            else
+            {
+                v.push_back(odd[l]);
+                l++;
+            }
+        }
+        return v;
+    }
+};
