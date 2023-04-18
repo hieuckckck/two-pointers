@@ -1,0 +1,31 @@
+easiest solution || c-plus-plus || easy to understand || just doing what they have said 😎😎😎😎
+bansalvishnu001
+50 Days Badge 2022
+236
+Nov 25, 2022
+Intuition
+Approach
+Complexity
+Time complexity:
+Space complexity:
+Code
+class Solution {
+public:
+    vector<bool> camelMatch(vector<string>& queries, string pattern) {
+        vector<bool> ans;
+        for(auto i:queries){
+            bool flag = false;
+            int ind=0;
+            bool f = true;
+            for(char c:i){
+                if(ind<pattern.length() && c==pattern[ind]) ind++;
+                else if(c<'a') f=false;
+            }
+            if(f){
+                flag=(ind==pattern.length());
+                ans.push_back(flag);
+            }else ans.push_back(false);
+        }
+        return ans;
+    }
+};
