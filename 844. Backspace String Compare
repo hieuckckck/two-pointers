@@ -1,0 +1,111 @@
+class Solution {
+
+public:
+    bool backspaceCompare(string s, string t) {
+        
+        int n = s.length();
+        int i = 0;
+        int m = t.length();
+        int j = 0;
+        while(i < n){
+            if(isalpha(s[i])){
+                i++;
+            }
+            else if(s[i] == '#'  && i != 0){
+                i++;
+                s.erase(i-2, 2);
+                n = s.length();
+                i = i-2;
+            }
+            else if(s[i] == '#' && i == 0){
+                i++;
+                s.erase(i-1,1);
+                n = s.length();
+                i = 0;
+            }
+        }
+        
+        while(j < m){
+            if(isalpha(t[j])){
+                j++;
+            }
+            else if(t[j] == '#' && j != 0){
+                j++;
+                t.erase(j-2,2);
+                m = t.length();
+                j = j-2;
+            }
+            else if(t[j] == '#' && j == 0){
+                j++;
+                t.erase(j-1,1);
+                m = t.length();
+                j = 0;
+            }
+        }
+        return s == t;
+    }
+};
+
+c2:
+
+ C++|| two pointer|| best solution on leetcode || 0ms solution🔥🔥✅
+gaurav12477
+3
+Apr 14, 2023
+Intuition
+✅two pointer approach , best solution on leetcode ,space:O(1) ,time: O(m+n)✅
+
+Approach
+Complexity
+Time complexity: O(m+n)
+Space complexity:O(1)
+Code
+class Solution {
+public:
+    bool backspaceCompare(string s, string t) {
+        
+        int n1 = s.length();
+        int n2 = t.length();
+
+        int i=0,j=0;
+
+       while(i < n1){
+            if(isalpha(s[i])){
+                i++;
+            }
+            else if(s[i] == '#' && i != 0){
+                i++;
+                s.erase(i-2,2);
+                n1 = s.length();
+                i-= 2;
+            }
+            else if(s[i] == '#' && i == 0){
+                i++;
+                s.erase(i-1,1);
+                n1 = s.length();
+                i = 0;
+            }
+        }
+
+        while(j < n2){
+            if(isalpha(t[j])){
+                j++;
+            }
+            else if(t[j] == '#' && j != 0){
+                j++;
+                t.erase(j-2,2);
+                n2 = t.length();
+                j-= 2;
+            }
+
+            else if(t[j] == '#' && j == 0){
+                j++;
+                t.erase(j-1,1);
+                n2 = t.length();
+                j = 0;
+            }
+        }
+
+        return s==t;
+    }
+};
