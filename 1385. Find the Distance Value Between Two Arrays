@@ -1,0 +1,71 @@
+class Solution {
+public:
+    int findTheDistanceValue(vector<int>& arr1, vector<int>& arr2, int d) {
+        sort(arr2.begin(), arr2.end());
+        
+        // "count" : number of elements which follow the goven rule
+        int count=0,low,high;
+        for(auto x:arr1){
+            // |arr1[i]- x| <= d    ,x= arr2[j]
+            // so lowest value to find in arr2 is , low= arr[i]-d
+            // and biggest value to find in arr2 is , high= arr[i]+d
+            low= x-d, high= x+d;
+            
+            // finding iterator of low and high
+            auto l= lower_bound(arr2.begin(), arr2.end(),low);
+            auto h= lower_bound(arr2.begin(), arr2.end(),high);
+            
+            // check if l is equal to h , that mean range low to high is not present in arr2
+            // also check is l iterator's value is not equal to low of high 
+            if(l==h && (*l != low && *l != high)) count++;
+        }
+        
+        return count;
+    }
+};
+
+c2: 
+C++||BINARY SEARCH|| WITH CLEAR EXPLANATION ||
+jayasurya1922
+19
+Mar 23, 2023
+Intuition
+Approach
+if no element in arr2 lie in this range
+[arr1[i]-d,arr1[i]+d] then arr1[i] contributes to the number we are returning
+
+if arr2[mid] < arr[i] and |arr1[i]-arr2[j]| > d then arr2[mid] lies in the range [0,arr1[i]-d) and there is a possibilty that elements of arr2 which are after mid lies in the [arr1[i]-d,arr1[i]+d] to check if any element is present in this range we make low = mid +1 and if there is no element eventually high > low becomes termination condition and arr1[i] contributes in the result
+if arr2[mid] > arr[i] and |arr1[i]-arr2[j]| > d then arr2[mid] lies in the range (arr1[i]+d,∞) and there is a possibilty that elements of arr2 which are before mid lies in the [arr1[i]-d,arr1[i]+d] to check if any element is present in this range we make high=mid-1 and if there is no element eventually high > low becomes termination condition and arr1[i] contributes in the result
+Complexity
+Time complexity:
+Space complexity:
+Code
+class Solution {
+public:
+    int findTheDistanceValue(vector<int>& arr1, vector<int>& arr2, int d) 
+    {
+         sort(arr2.begin(),arr2.end());
+         int result = 0;
+         for(int i = 0; i<arr1.size(); i++)
+        {
+          int low = 0;
+          int high = arr2.size()-1;
+          while(low <= high)
+          {
+             int mid=low +(high-low)/2;
+             if(abs(arr1[i]-arr2[mid]) <= d)
+             {
+                 break;
+             }if(arr2[mid] < arr1[i]){
+                 low = mid +1;
+             }else{
+                 high = mid-1;
+             }
+          }
+          if(low > high){
+              result++;
+          }
+        }
+     return result;
+    }
+};
