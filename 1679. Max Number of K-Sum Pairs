@@ -1,0 +1,56 @@
+class Solution {
+public:
+    int maxOperations(vector<int>& nums, int k) {
+        sort(nums.begin(),nums.end());
+        int i = 0, j = nums.size()-1, ans = 0;
+        while(i<j){
+            if(nums[i]+nums[j]==k){
+                ans++;
+                i++;
+                j--;
+            }else if(nums[i]+nums[j]>k){
+                j--;
+            }else{
+                i++;
+            }
+        }
+        return ans;
+    }
+};
+
+c2:
+
+✔️ ✔️ C++ || Beats 99.20% || Two Pointer Approach || Sorting
+ankitnainwal999
+100 Days Badge 2022
+1
+Jan 30, 2023
+Approach
+Sort the vector
+Apply two pointer approach to find count of K-Sum Pair
+For each sum equals to K, change both pointers, and increment count. otherwise change only one pointer.
+Return count.
+Complexity
+Time complexity: O(nlogn)
+Space complexity: O(1)
+Code
+class Solution {
+public:
+    int maxOperations(vector<int>& nums, int k) {
+        sort(nums.begin(), nums.end());
+
+        int low =0, high = nums.size()-1, count =0;
+
+        while(low<high){
+            int sum = nums[low]+nums[high];
+            if(sum == k){
+                low++;
+                high--;
+                count++;
+            } 
+            else if(sum > k) high--;
+            else    low++;
+        }
+        return count;
+    }
+};
