@@ -1,0 +1,44 @@
+Easy to understand Two pointers approach
+112120055
+3
+Feb 16, 2023
+Intuition
+Approach
+Sort the vector and then pair 1st and last element together and increase the counter till we reach the mid. While traversing also calculate the pair sum and store the maximum in one variable.
+Complexity
+Time complexity:
+O(nlogn)
+
+Space complexity:
+O(1)
+
+Code
+class Solution {
+public:
+    int minPairSum(vector<int>& nums) {
+        int n = nums.size();
+        int ans = INT_MIN;
+
+        sort(nums.begin() , nums.end());
+        for(int i=0; i<n/2; i++)
+        {
+            int pair = nums[i] + nums[n-1-i];
+            ans = max(ans, pair);
+        }
+        return ans;
+        
+    }
+};
+
+c2:
+class Solution {
+public:
+    int minPairSum(vector<int>& nums) {
+        int ans = 0;
+        sort(nums.begin(),nums.end());
+        for(int i = 0; i < (nums.size()>>1); i++){
+            ans = max(ans,nums[i]+nums[nums.size()-1-i]);
+        }
+        return ans;
+    }
+};
