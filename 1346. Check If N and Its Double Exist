@@ -1,0 +1,96 @@
+C++ | Optimized Binary Search
+Princesah09
+100 Days Badge 2022
+52
+Mar 26, 2023
+Code
+class Solution {
+public:
+    bool checkIfExist(vector<int>& arr) {
+        sort(arr.begin(),arr.end());
+        // Here we use binary search algo
+        for(int i=0;i<arr.size();i++){ 
+            int s = 0, e = arr.size()-1;
+            int target = 2*arr[i];
+            while(s<=e){
+                int mid = s+(e-s)/2;
+                if((arr[mid]==target) && (i!=mid))return true;
+                else if(arr[mid] > target){
+                    e = mid-1;
+                }
+                else   
+                    s = mid+1;
+            }
+        }
+        return false;
+    }
+};  
+c2: 
+C++ Solution || Using Hash Table
+Asad_Sarwar
+255
+Mar 14, 2023
+Intuition
+Approach
+Complexity
+Time complexity:
+Space complexity:
+Code
+class Solution {
+public:
+    bool checkIfExist(vector<int>& arr) {
+        
+    unordered_set<int> s;
+    for (int i = 0; i < arr.size(); i++)
+    {
+        if (s.find(2 * arr[i]) != s.end())
+            return true;
+        if (arr[i] % 2 == 0 && s.find(arr[i] / 2) != s.end())
+            return true;   
+        s.insert(arr[i]);
+    }
+    return false;
+
+    }
+};
+
+c3:
+
+Simple C++ Solution
+Divyanshu_singh_cs
+Dynamic Programming I
+108
+Feb 12, 2023
+Intuition
+Approach
+Complexity
+Time complexity:
+Space complexity:
+Code
+class Solution {
+public:
+      bool check(vector<int>& arr,int index){
+        int p = arr[index] * 2;
+        int lo = 0, hi = arr.size() - 1;
+        while(lo <= hi){
+            int mid = lo + (hi - lo)/2;
+            if(arr[mid] == p && mid != index)   return true;
+            else if(arr[mid] < p){
+                lo = mid + 1;
+            }else{
+                hi = mid - 1;
+            }
+        }
+        return false;
+    }
+    
+    bool checkIfExist(vector<int>& arr) {
+        sort(arr.begin(),arr.end());
+        for(int i=0;i<arr.size();i++){
+            if(check(arr,i)){
+                return true;
+            }
+        }
+        return false;
+    }
+};
