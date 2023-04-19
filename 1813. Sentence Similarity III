@@ -1,0 +1,47 @@
+C++ || StringStream || Simple || Easy Brute Force
+Lord_yuvi
+50
+Nov 09, 2022
+class Solution {
+public:
+    bool areSentencesSimilar(string s1, string s2) {
+        stringstream ss1(s1);
+        stringstream ss2(s2);
+        vector<string>v1; vector<string>v2;
+        string word;
+        while(ss1>>word)
+        {
+            v1.push_back(word);
+        }
+        while(ss2>>word)
+        {
+            v2.push_back(word);
+        }
+        
+        int n1=v1.size(); int n2=v2.size();
+        int i=0; int j=0; 
+        while(i<n1 and j<n2)
+        {
+            if(v1[i]==v2[j])
+            {
+                i++; j++;
+            }
+            else{
+                break;
+            }
+        }
+        int index=i,index2=j;
+        i=n1-1; j=n2-1;
+        while(i>=index and j>=index2)
+        {
+            if(v1[i]==v2[j])
+            {
+                i--; j--;
+            }
+            else{
+                return false;
+            }
+        }
+        return true;
+    }
+};
