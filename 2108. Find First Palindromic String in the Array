@@ -1,0 +1,89 @@
+Easy to Understand --> C++ code
+sunny_6289
+83
+Apr 09, 2023
+Intuition
+To check palindrome or not we need to use the two pointer approach.
+
+Approach
+Access all the strings of the vector 'words' , then keep 'i' at the first of the accessed string and keep 'j' at the end of the accessed string, then check are they equal or not , then increase 'i' and decrease 'j' and continue the process (Same as palindrome checking).
+
+if (isPalindrome){
+    ans=words[p];
+    break;
+After getting the first palindrome word insert it into ans and break out of the loop then return ans.
+
+Complexity
+Time complexity:
+O(n2)O(n^2)O(n 
+2
+ )
+
+Space complexity:
+O(1)O(1)O(1)
+
+Code
+class Solution {
+public:
+    string firstPalindrome(vector<string>& words) {
+        string ans;
+        for(int p=0;p<words.size();p++){
+            int i=0;
+            int j=words[p].size()-1;
+            bool isPalindrome=true;
+            while(i<=j){
+                if(words[p][i]==words[p][j]){
+                    i++;
+                    j--;
+                }else{
+                    isPalindrome=false;
+                    i++;
+                    j--;
+                }
+            }
+            if (isPalindrome){
+                ans=words[p];
+                break;
+            }
+        }
+        return ans;
+    }
+};
+
+c2:
+
+C++ Solution ✔ || Java Solution || Beginners Friendly ✅
+mahesh_1729
+Binary Search I
+157
+Oct 19, 2022
+Upvote this post if you like it ✔
+
+C++ Solution
+class Solution {
+public:
+
+bool checkPalindrome(string str){
+int s = 0;
+int e = str.size()-1;
+while(s<=e){
+    if(str[s] != str[e]){
+        return 0;
+    }
+    else{
+        s++;
+        e--;
+    }
+}
+return 1;
+}
+
+string firstPalindrome(vector<string>& words) {
+    
+    for(int i = 0; i<words.size(); i++){
+        if(checkPalindrome(words[i]))
+            return words[i];
+    }
+    return "";
+}
+};
