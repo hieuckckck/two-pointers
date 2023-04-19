@@ -1,0 +1,82 @@
+C++ O(N) Sliding window; Explanation with Illustrations
+lzl124631x
+Annual Medal 2021
+8693
+Sep 05, 2020
+See my latest update in repo LeetCode
+
+Solution 1.
+Scan from left to right, find the first index left that A[left] > A[left + 1].
+
+If left == N - 1, this array is already non-descending, return 0.
+
+Scan from right to left, find the first index right that A[right] < A[right - 1].
+
+image
+
+Now we loosely have two options, either deleting the left-side right nodes, or deleting the right-side N - left - 1 nodes.
+image
+
+image
+
+So the answer is at most min(N - left - 1, right).
+
+Now we can use a sliding window / two pointers to get tighter result.
+
+Let i = 0, j = right. And we examine if we can delete elements between i and j (exclusive) by comparing A[i] and A[j].
+
+image
+
+Case 1: A[j] >= A[i], we can delete elements inbetween, so we can try to update the answer using j - i - 1 and increment i to tighten the window.
+
+image
+
+Case 2: A[j] < A[i], we can't delete elements inbetween, so we increment j to loosen the window.
+
+image
+
+We loop until i > left or j == N. And the answer we get should be the minimal possible solution.
+
+// OJ: https://leetcode.com/problems/shortest-subarray-to-be-removed-to-make-array-sorted/
+// Author: github.com/lzl124631x
+// Time: O(N)
+// Space: O(1)
+// Ref: https://leetcode.com/problems/shortest-subarray-to-be-removed-to-make-array-sorted/discuss/830416/Java-Increasing-From-Left-Right-and-Merge-O(n)
+class Solution {
+public:
+    int findLengthOfShortestSubarray(vector<int>& A) {
+        int N = A.size(), left = 0, right = N - 1;
+        while (left + 1 < N && A[left] <= A[left + 1]) ++left;
+        if (left == A.size() - 1) return 0;
+        while (right > left && A[right - 1] <= A[right]) --right;
+        int ans = min(N - left - 1, right), i = 0, j = right;
+        while (i <= left && j < N) {
+            if (A[j] >= A[i]) {
+                ans = min(ans, j - i - 1);
+                ++i;
+            } else ++j;
+        }
+        return ans;
+    }
+};
+c2:
+C++ O(n) merging left and right sequences (inner loop O(n)) 108ms
+LadyLeetCoder
+100 Days Badge 2022
+11
+Mar 22, 2023
+class Solution { // frash
+public: // check [1,2,3,10,0,7,8,9] as well
+    int findLengthOfShortestSubarray(vector<int>& arr) {
+        int az = arr.size(), l = 0, r = az - 1;
+        while (r > 0 && arr[r - 1] <= arr[r]) r--; // Right-side sequence
+        int ans = r; // If all right-side should be removed
+        while (l < r && (l == 0 || arr[l - 1] <= arr[l])) { // Merging the sequences from left and right
+            while (r < az && arr[r] < arr[l]) r++; // Independent of the outer loop changes at most O(n)
+            ans = min(ans, r - l - 1);
+            l++;
+        }
+        return ans;
+    }
+};
+
